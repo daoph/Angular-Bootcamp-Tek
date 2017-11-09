@@ -13,8 +13,9 @@ import { Component } from '@angular/core';
     `],
     template: `
    <div>
-    <div *ngFor = "let news of newsItems; let newsId = index">
-    <h3>{{news.title}}</h3>
+   <input type ="text"[(ngModel)]="searchText" placeholder="Search"/>
+    <div *ngFor = "let news of (newsItems | newsSearch:searchText); let newsId = index">
+    <h3>{{news.title | uppercase}}</h3>
     <p [ngClass] = "{collapsed: selectedNewsId != newsId}">
     {{news.body}}
     </p>
@@ -25,7 +26,7 @@ import { Component } from '@angular/core';
     `
 })
 export class NewsList {
-
+    searchText: string;
     newsItems: { title:string, body:string}[]=[];
 
 // newsSvc : NewsService; //this is deleted in favor of shorthand syntax on line 34
